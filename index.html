@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шаурмен28 — Легендарная шаурма</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff6b35;
+            --secondary-color: #f7b731;
+            --dark-color: #1a1a1a;
+            --light-color: #fff;
+            --gray-color: #2d2d2d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+        }
+
+        /* Шапка */
+        header {
+            background-color: rgba(26, 26, 26, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        nav a {
+            color: var(--light-color);
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Главный экран */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1662116765994-b77209c4d288?q=80&w=1920') no-repeat center center/cover;
+            padding: 0 20px;
+            margin-top: 60px;
+        }
+
+        .hero-content h1 {
+            font-size: 50px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s ease;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #e0531f;
+            transform: scale(1.05);
+        }
+
+        /* Меню */
+        .menu-section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 10px auto 0;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .menu-item {
+            background-color: var(--gray-color);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #3d3d3d;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .item-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .item-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .item-title {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .item-desc {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 20px;
+            height: 40px;
+        }
+
+        .item-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .item-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .btn-sm {
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+        /* Форма заказа внутри корзины */
+        .order-form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .order-form input {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background-color: #1a1a1a;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .order-form input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        /* Контакты */
+        .contacts {
+            background-color: var(--gray-color);
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .contacts p {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        /* Индикатор корзины в шапке */
+        .cart-link {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .cart-badge {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            padding: 2px 8px;
+            border-radius: 50%;
+            font-size: 14px;
+            margin-left: 7px;
+            font-weight: 900;
+        }
+
+        /* Модальное окно корзины */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--gray-color);
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            border: 2px solid var(--primary-color);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #aaa;
+            transition: 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-color);
+        }
+
+        .modal h2 {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #444;
+        }
+
+        .cart-item-info h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-info p {
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-btn {
+            background-color: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 5px 12px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: 0.2s;
+        }
+
+        .cart-btn:hover {
+            background-color: #e0531f;
+        }
+
+        .cart-total {
+            margin-top: 25px;
+            font-size: 22px;
+            font-weight: 900;
+            text-align: right;
+            color: var(--light-color);
+        }
+
+        .cart-total span {
+            color: var(--secondary-color);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #666;
+            border-top: 1px solid #3d3d3d;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo">Шаурмен<span>28</span></div>
+            <nav style="display: flex; align-items: center;">
+                <a href="#hero">Главная</a>
+                <a href="#menu">Меню</a>
+                <a href="#contacts">Контакты</a>
+                <a href="#" class="cart-link" onclick="toggleCart(); return false;">
+                    Корзина<span class="cart-badge" id="cart-count">0</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1>Супергеройский вкус в каждом укусе!</h1>
+            <p>Свежее мясо, фирменный соус и хрустящий лаваш от Шаурмена28</p>
+            <a href="#menu" class="btn">Выбрать шаурму</a>
+        </div>
+    </section>
+
+    <section class="menu-section" id="menu">
+        <h2 class="section-title">Наше Меню</h2>
+        
+        <div class="menu-grid">
+            <div class="menu-item">
+                <div class="item-img" style="background-image: url('https://images.unsplash.com/photo-1529042410759-befb1204b468?q=80&w=500');"></div>
+                <div class="item-info">
+                    <h3 class="item-title">Шаурма Классика</h3>
+                    <p class="item-desc">Курица карри, свежие томаты, огурчики и наш секретный чесночный соус.</p>
+                    <div class="item-bottom">
+                        <span class="item-price">250 ₽</span>
+                        <button class="btn btn-sm" onclick="addToCart(1, 'Шаурма Классика', 250)">В корзину</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="item-img" style="background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=500');"></div>
+                <div class="item-info">
+                    <h3 class="item-title">Сырный Взрыв</h3>
+                    <p class="item-desc">Двойная порция моцареллы, чеддер, сочная курица в сырном лаваше.</p>
+                    <div class="item-bottom">
+                        <span class="item-price">300 ₽</span>
+                        <button class="btn btn-sm" onclick="addToCart(2, 'Сырный Взрыв', 300)">В корзину</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="item-img" style="background-image: url('https://images.unsplash.com/photo-1608897013039-887f21d8c804?q=80&w=500');"></div>
+                <div class="item-info">
+                    <h3 class="item-title">Острая Мега</h3>
+                    <p class="item-desc">Для смелых: перец халапеньо, свинина на гриле, острый соус чили.</p>
+                    <div class="item-bottom">
+                        <span class="item-price">320 ₽</span>
+                        <button class="btn btn-sm" onclick="addToCart(3, 'Острая Мега', 320)">В корзину</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="toggleCart()">&times;</span>
+            <h2>Ваш заказ</h2>
+            
+            <div id="cart-items">
+                <p style="text-align:center; color:#aaa;">Корзина пуста 🌯</p>
+            </div>
+            
+            <div class="cart-total">
+                Итого: <span id="cart-total-price">0</span> ₽
+            </div>
+
+            <div class="order-form" id="order-fields" style="display: none;">
+                <input type="text" id="client-name" placeholder="Ваше имя" required>
+                <input type="tel" id="client-phone" placeholder="Номер телефона" required>
+                <input type="text" id="client-address" placeholder="Адрес доставки (или самовывоз)">
+            </div>
+            
+            <button class="btn checkout-btn" onclick="sendOrder()">Оформить заказ в TG</button>
+        </div>
+    </div>
+
+    <section class="contacts" id="contacts">
+        <h2 class="section-title">Где нас найти?</h2>
+        <p>📍 г. Благовещенск, ул. Ленина, д. 28</p>
+        <p>📞 Телефон для предзаказа: +7 (999) 123-45-67</p>
+        <p>⏰ Работаем ежедневно с 10:00 до 23:00</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Шаурмен28. Все права защищены. Сделано с аппетитом.</p>
+    </footer>
+
+    <script>
+        // ================= НАСТРОЙКИ ТЕЛЕГРАМА =================
+        const TG_TOKEN = '8788164279:AAGtsQW0kn6Z3RJvUkaul9Hwzrgy4I_j-Yo'; 
+        const TG_CHAT_ID = '6306592448';
+        // =======================================================
+
+        let cart = [];
+
+        function addToCart(id, name, price) {
+            const existingItem = cart.find(item => item.id === id);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ id, name, price, quantity: 1 });
+            }
+            updateCart();
+        }
+
+        function changeQuantity(id, delta) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(i => i.id !== id);
+                }
+            }
+            updateCart();
+        }
+
+        function updateCart() {
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').innerText = totalCount;
+
+            const cartItemsContainer = document.getElementById('cart-items');
+            const orderFields = document.getElementById('order-fields');
+            cartItemsContainer.innerHTML = '';
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align:center; color:#aaa;">Корзина пуста 🌯</p>';
+                orderFields.style.display = 'none';
+            } else {
+                orderFields.style.display = 'flex';
+                cart.forEach(item => {
+                    cartItemsContainer.innerHTML += `
+                        <div class="cart-item">
+                            <div class="cart-item-info">
+                                <h4>${item.name}</h4>
+                                <p>${item.price} ₽ × ${item.quantity}</p>
+                            </div>
+                            <div class="cart-item-controls">
+                                <button class="cart-btn" onclick="changeQuantity(${item.id}, -1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="cart-btn" onclick="changeQuantity(${item.id}, 1)">+</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('cart-total-price').innerText = totalPrice;
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // ОТПРАВКА ЗАКАЗА В TELEGRAM
+        async function sendOrder() {
+            if (cart.length === 0) {
+                alert('Добавьте хотя бы одну шаурму!');
+                return;
+            }
+
+            const name = document.getElementById('client-name').value.trim();
+            const phone = document.getElementById('client-phone').value.trim();
+            const address = document.getElementById('client-address').value.trim() || 'Самовывоз';
+
+            if (!name || !phone) {
+                alert('Пожалуйста, заполните Имя и Телефон для связи!');
+                return;
+            }
+
+            // Формируем красивый текст сообщения
+            let message = `🔥 *НОВЫЙ ЗАКАЗ — ШАУРМЕН28* 🔥\n\n`;
+            message += `👤 *Клиент:* ${name}\n`;
+            message += `📞 *Телефон:* ${phone}\n`;
+            message += `📍 *Адрес:* ${address}\n\n`;
+            message += `📦 *Состав заказа:*\n`;
+
+            cart.forEach(item => {
+                message += `• ${item.name} — ${item.quantity} шт. (${item.price * item.quantity} ₽)\n`;
+            });
+
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            message += `\n💰 *Итого к оплате:* ${totalPrice} ₽`;
+
+            // URL запроса к API Telegram
+            const url = `https://api.telegram.org/bot${TG_TOKEN}/sendMessage`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: TG_CHAT_ID,
+                        text: message,
+                        parse_mode: 'Markdown'
+                    })
+                });
+
+                if (response.ok) {
+                    alert('Заказ успешно отправлен! Наш менеджер свяжется с вами в ближайшее время. 🌯✨');
+                    // Очистка формы и корзины
+                    cart = [];
+                    document.getElementById('client-name').value = '';
+                    document.getElementById('client-phone').value = '';
+                    document.getElementById('client-address').value = '';
+                    updateCart();
+                    toggleCart();
+                } else {
+                    alert('Ошибка при отправке. Проверьте настройки бота.');
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Произошла ошибка соединения с Telegram.');
+            }
+        }
+    </script>
+</body>
+</html>
