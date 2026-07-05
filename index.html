@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Шаурмен28 — Легендарная шаурма</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>Шаурмен28 — Легендарная шаурма и Тандыр</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #ff6b35;
             --secondary-color: #f7b731;
-            --dark-color: #1a1a1a;
+            --dark-color: #141414;
             --light-color: #fff;
-            --gray-color: #2d2d2d;
+            --gray-color: #1f1f1f;
+            --item-bg: #262626;
             --tg-color: #0088cc;
         }
 
@@ -26,12 +27,12 @@
         body {
             background-color: var(--dark-color);
             color: var(--light-color);
-            padding-bottom: 70px; /* Отступ снизу для мобильной панели */
+            padding-bottom: 70px; /* Для нижней мобильной панели */
         }
 
         /* Шапка */
         header {
-            background-color: rgba(26, 26, 26, 0.95);
+            background-color: rgba(20, 20, 20, 0.95);
             position: fixed;
             width: 100%;
             top: 0;
@@ -45,7 +46,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
+            padding: 12px 20px;
         }
 
         .logo {
@@ -60,41 +61,73 @@
             color: var(--secondary-color);
         }
 
-        nav a {
-            color: var(--light-color);
-            text-decoration: none;
-            margin-left: 20px;
-            font-weight: 700;
-            transition: 0.3s;
-            font-size: 15px;
+        /* Горизонтальный скролл категорий (Идеально для мобилок!) */
+        .category-scroller {
+            background-color: var(--gray-color);
+            position: fixed;
+            top: 51px;
+            width: 100%;
+            z-index: 999;
+            border-bottom: 1px solid #333;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            padding: 10px 0;
         }
 
-        nav a:hover {
-            color: var(--primary-color);
+        .category-scroller::-webkit-scrollbar {
+            display: none; /* Прячем некрасивый скроллбар */
+        }
+
+        .category-scroller-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .category-scroller a {
+            display: inline-block;
+            color: #ccc;
+            text-decoration: none;
+            padding: 8px 16px;
+            background-color: var(--item-bg);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            transition: 0.3s;
+            border: 1px solid #3a3a3a;
+        }
+
+        .category-scroller a:hover, .category-scroller a:active {
+            background-color: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
         }
 
         /* Главный экран */
         .hero {
-            min-height: 80vh;
+            min-height: 50vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1662116765994-b77209c4d288?q=80&w=1920') no-repeat center center/cover;
-            padding: 100px 20px 60px 20px;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1662116765994-b77209c4d288?q=80&w=1200') no-repeat center center/cover;
+            padding: 140px 20px 40px 20px;
         }
 
         .hero-content h1 {
-            font-size: 42px;
+            font-size: 36px;
             font-weight: 900;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             text-transform: uppercase;
             line-height: 1.2;
         }
 
         .hero-content p {
-            font-size: 18px;
-            margin-bottom: 35px;
+            font-size: 16px;
+            margin-bottom: 20px;
             color: #ccc;
         }
 
@@ -102,163 +135,138 @@
         .btn {
             background-color: var(--primary-color);
             color: var(--light-color);
-            padding: 16px 35px;
+            padding: 14px 30px;
             border: none;
             border-radius: 50px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             cursor: pointer;
             text-decoration: none;
             transition: 0.3s ease;
             display: inline-block;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
-        }
-
-        .btn:hover {
-            background-color: #e0531f;
-            transform: scale(1.02);
         }
 
         .btn-tg {
             background-color: var(--tg-color);
-            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.3);
         }
 
-        .btn-tg:hover {
-            background-color: #0077b3;
+        /* Разделы меню */
+        .menu-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 15px;
         }
 
-        /* Меню */
-        .menu-section {
-            max-width: 1200px;
-            margin: 60px auto;
-            padding: 0 20px;
+        .category-section {
+            margin-bottom: 45px;
+            scroll-margin-top: 110px; /* Чтобы при переходе по ссылке заголовок не прятался под шапку */
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 32px;
-            margin-bottom: 40px;
+        .category-title {
+            font-size: 24px;
+            font-weight: 900;
             text-transform: uppercase;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background-color: var(--primary-color);
-            margin: 10px auto 0;
-        }
-
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .menu-item {
-            background-color: var(--gray-color);
-            border-radius: 18px;
-            overflow: hidden;
-            border: 1px solid #3d3d3d;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .item-img {
-            height: 220px;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .item-info {
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            text-align: left;
-        }
-
-        .item-title {
-            font-size: 22px;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .item-desc {
-            font-size: 14px;
-            color: #bbb;
+            color: var(--primary-color);
             margin-bottom: 20px;
-            line-height: 1.5;
-            flex-grow: 1;
-        }
-
-        .item-bottom {
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid #444;
-            padding-top: 15px;
+        }
+
+        .category-count {
+            font-size: 14px;
+            color: #666;
+            font-weight: 400;
+        }
+
+        /* Компактный список блюд */
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .menu-item {
+            background-color: var(--item-bg);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.2s;
+        }
+
+        .menu-item:hover {
+            border-color: #444;
+            background-color: #2b2b2b;
+        }
+
+        .item-details h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            padding-right: 10px;
+        }
+
+        .item-weight {
+            font-size: 13px;
+            color: #999;
         }
 
         .item-price {
-            font-size: 24px;
+            font-size: 18px;
             font-weight: 900;
             color: var(--secondary-color);
-        }
-
-        .order-badge {
-            font-size: 13px;
-            color: #aaa;
-            font-weight: 700;
-            text-transform: uppercase;
+            white-space: nowrap;
+            background-color: rgba(0,0,0,0.2);
+            padding: 6px 12px;
+            border-radius: 8px;
         }
 
         /* Контакты */
         .contacts {
             background-color: var(--gray-color);
-            padding: 60px 20px;
+            padding: 50px 20px;
             text-align: center;
-        }
-
-        .contacts h2 {
-            margin-bottom: 30px;
+            margin-top: 60px;
         }
 
         .contacts p {
-            font-size: 18px;
-            margin-bottom: 15px;
+            font-size: 16px;
+            margin-bottom: 12px;
         }
 
         .contact-buttons {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
+            gap: 12px;
+            margin-top: 25px;
             flex-wrap: wrap;
         }
 
-        /* Липкая нижняя панель для мобильных */
+        /* Нижний мобильный бар */
         .mobile-action-bar {
-            display: none;
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: #111;
+            background-color: #0f0f0f;
             border-top: 2px solid var(--primary-color);
             z-index: 999;
+            display: grid;
             grid-template-columns: 1fr 1fr;
-            padding: 10px;
-            gap: 10px;
+            padding: 8px;
+            gap: 8px;
         }
 
         .mobile-action-bar a {
             padding: 12px;
             font-size: 14px;
-            border-radius: 10px;
+            border-radius: 8px;
             text-align: center;
             font-weight: 700;
             text-decoration: none;
@@ -270,42 +278,19 @@
 
         footer {
             text-align: center;
-            padding: 30px 20px;
-            font-size: 14px;
-            color: #666;
-            border-top: 1px solid #3d3d3d;
+            padding: 25px 20px;
+            font-size: 13px;
+            color: #555;
+            border-top: 1px solid #222;
         }
 
-        /* АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ (МЕДИА-ЗАПРОСЫ) */
-        @media (max-width: 768px) {
-            nav {
-                display: none; /* Скрываем ПК-меню, на смартфонах оно не нужно */
-            }
-
-            .hero-content h1 {
-                font-size: 32px; /* Уменьшаем текст заголовка, чтобы влезал */
-            }
-
-            .hero-content p {
-                font-size: 16px;
-            }
-
-            .menu-grid {
-                grid-template-columns: 1fr; /* Карточки шаурмы идут строго по одной в ряд */
-                gap: 20px;
-            }
-
-            .item-img {
-                height: 180px; /* Чуть уменьшаем высоту картинок на телефонах */
-            }
-
-            .mobile-action-bar {
-                display: grid; /* Показываем нижнюю панель только на мобилках */
-            }
-
-            body {
-                padding-bottom: 80px; /* Чтобы подвал не перекрывался кнопками */
-            }
+        /* Адаптация размеров текста под экраны смартфонов */
+        @media (max-width: 480px) {
+            .hero-content h1 { font-size: 26px; }
+            .hero-content p { font-size: 14px; }
+            .item-details h3 { font-size: 14px; }
+            .item-price { font-size: 16px; }
+            .category-title { font-size: 20px; }
         }
     </style>
 </head>
@@ -315,95 +300,167 @@
     <header>
         <div class="header-container">
             <div class="logo">Шаурмен<span>28</span></div>
-            <nav>
-                <a href="#hero">Главная</a>
-                <a href="#menu">Меню</a>
-                <a href="#contacts">Контакты</a>
-            </nav>
         </div>
     </header>
+
+    <!-- Скролл-панель категорий меню (всегда под рукой на мобильном) -->
+    <div class="category-scroller">
+        <div class="category-scroller-container">
+            <a href="#shaurma">Шаурма</a>
+            <a href="#pita">В пите</a>
+            <a href="#tandyr">Тандыр</a>
+            <a href="#soups">Супы</a>
+            <a href="#salads">Салаты</a>
+            <a href="#burgers">Бургеры</a>
+            <a href="#hotdogs">Хот-доги</a>
+            <a href="#frit">Фритюр</a>
+        </div>
+    </div>
 
     <!-- Главный баннер -->
     <section class="hero" id="hero">
         <div class="hero-content">
-            <h1>Супергеройский вкус в каждом укусе!</h1>
-            <p>Выбирай начинку, а мы приготовим за 10 минут</p>
-            <a href="#menu" class="btn">Посмотреть Меню</a>
+            <h1>Легендарный вкус Шаурмен28</h1>
+            <p>Выбирайте любимые блюда и заказывайте напрямую</p>
+            <a href="#shaurma" class="btn">Перейти к меню</a>
         </div>
     </section>
 
-    <!-- Раздел Меню -->
-    <section class="menu-section" id="menu">
-        <h2 class="section-title">Наше Меню</h2>
-        
-        <div class="menu-grid">
-            <!-- Товар 1 -->
-            <div class="menu-item">
-                <div class="item-img" style="background-image: url('https://images.unsplash.com/photo-1529042410759-befb1204b468?q=80&w=500');"></div>
-                <div class="item-info">
-                    <h3 class="item-title">Шаурма Классика</h3>
-                    <p class="item-desc">Сочная курица карри, свежие томаты, хрустящие огурчики и наш фирменный секретный чесночный соус.</p>
-                    <div class="item-bottom">
-                        <span class="item-price">250 ₽</span>
-                        <span class="order-badge">🔥 Хит</span>
-                    </div>
-                </div>
-            </div>
+    <!-- Основной блок меню -->
+    <div class="menu-container">
 
-            <!-- Товар 2 -->
-            <div class="menu-item">
-                <div class="item-img" style="background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=500');"></div>
-                <div class="item-info">
-                    <h3 class="item-title">Сырный Взрыв</h3>
-                    <p class="item-desc">Двойная порция нежной моцареллы, пикантный чеддер и сочное мясо в ароматном сырном лаваше.</p>
-                    <div class="item-bottom">
-                        <span class="item-price">300 ₽</span>
-                        <span class="order-badge">🧀 Много сыра</span>
-                    </div>
-                </div>
+        <!-- КАТЕГОРИЯ: ШАУРМА -->
+        <section class="category-section" id="shaurma">
+            <h2 class="category-title">Шаурма <span class="category-count">18 позиций</span></h2>
+            <div class="menu-list">
+                <div class="menu-item"><div class="item-details"><h3>Шаурма классическая с бараниной</h3><span class="item-weight">450гр</span></div><div class="item-price">600 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Шаурма классическая с курицей</h3><span class="item-weight">450гр</span></div><div class="item-price">450 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Шаурма классическая со свининой</h3><span class="item-weight">450гр</span></div><div class="item-price">550 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Шаурма классическая с говядиной</h3><span class="item-weight">450гр</span></div><div class="item-price">600 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Шаурма Три мяса</h3><span class="item-weight">450гр</span></div><div class="item-price">550 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Шаурма Сырная</h3><span class="item-weight">450гр</span></div><div class="item-price">530 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Бртуч с курицей</h3><span class="item-weight">500гр</span></div><div class="item-price">500 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Бртуч со свининой</h3><span class="item-weight">500гр</span></div><div class="item-price">600 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Бртуч с говядиной</h3><span class="item-weight">500гр</span></div><div class="item-price">650 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Шаурма Острая с курицей</h3><span class="item-weight">480гр</span></div><div class="item-price">480 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Шаурма Острая со свининой</h3><span class="item-weight">480гр</span></div><div class="item-price">580 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Шаурма Острая с говядиной</h3><span class="item-weight">480гр</span></div><div class="item-price">630 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Шаурма Курица Бекон</h3><span class="item-weight">480гр</span></div><div class="item-price">480 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Шаурма Жульен</h3><span class="item-weight">490гр</span></div><div class="item-price">550 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Шаурма Цезарь</h3><span class="item-weight">470гр</span></div><div class="item-price">500 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Шаурма Жора</h3><span class="item-weight">570гр</span></div><div class="item-price">650 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Шаурма Тандыр</h3><span class="item-weight">650гр</span></div><div class="item-price">700 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Шаурма MIX</h3><span class="item-weight">630гр</span></div><div class="item-price">680 ₽</div></div>
             </div>
+        </section>
 
-            <!-- Товар 3 -->
-            <div class="menu-item">
-                <div class="item-img" style="background-image: url('https://images.unsplash.com/photo-1608897013039-887f21d8c804?q=80&w=500');"></div>
-                <div class="item-info">
-                    <h3 class="item-title">Острая Мега</h3>
-                    <p class="item-desc">Для любителей погорячее: жгучий перец халапеньо, свинина на гриле и фирменный острый чили-соус.</p>
-                    <div class="item-bottom">
-                        <span class="item-price">320 ₽</span>
-                        <span class="order-badge">🌶️ Острая</span>
-                    </div>
-                </div>
+        <!-- КАТЕГОРИЯ: ШАУРМА В ПИТЕ -->
+        <section class="category-section" id="pita">
+            <h2 class="category-title">Шаурма в пите <span class="category-count">6 позиций</span></h2>
+            <div class="menu-list">
+                <div class="menu-item"><div class="item-details"><h3>Шаурма в пите классическая с бараниной</h3><span class="item-weight">350гр</span></div><div class="item-price">500 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Классическая с курицей</h3><span class="item-weight">350гр</span></div><div class="item-price">400 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Классическая со свининой</h3><span class="item-weight">350гр</span></div><div class="item-price">450 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Классическая с говядиной</h3><span class="item-weight">350гр</span></div><div class="item-price">500 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Сырная</h3><span class="item-weight">350гр</span></div><div class="item-price">450 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Три мяса</h3><span class="item-weight">350гр</span></div><div class="item-price">450 ₽</div></div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Контакты и кнопки заказа -->
+        <!-- КАТЕГОРИЯ: БЛЮДА ИЗ ТАНДЫРА -->
+        <section class="category-section" id="tandyr">
+            <h2 class="category-title">Блюда из Тандыра <span class="category-count">6 позиций</span></h2>
+            <div class="menu-list">
+                <div class="menu-item"><div class="item-details"><h3>Шашлык из свиной шеи</h3><span class="item-weight">400гр</span></div><div class="item-price">600 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Шашлык из куриного бедра</h3><span class="item-weight">400гр</span></div><div class="item-price">450 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Шашлык из свиной грудинки</h3><span class="item-weight">400гр</span></div><div class="item-price">500 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Шашлык из баранины</h3><span class="item-weight">400гр</span></div><div class="item-price">700 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Люля-кебаб из говядины</h3><span class="item-weight">400гр</span></div><div class="item-price">500 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Сет-Тандыр</h3><span class="item-weight">750гр</span></div><div class="item-price">1 100 ₽</div></div>
+            </div>
+        </section>
+
+        <!-- КАТЕГОРИЯ: ПЕРВЫЕ БЛЮДА -->
+        <section class="category-section" id="soups">
+            <h2 class="category-title">Первые блюда <span class="category-count">4 позиции</span></h2>
+            <div class="menu-list">
+                <div class="menu-item"><div class="item-details"><h3>Суп Три мяса</h3><span class="item-weight">450гр</span></div><div class="item-price">300 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Суп Сливочно-грибной</h3><span class="item-weight">450гр</span></div><div class="item-price">300 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Суп Острый</h3><span class="item-weight">450гр</span></div><div class="item-price">300 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Суп Похлебка Баварская</h3><span class="item-weight">450гр</span></div><div class="item-price">320 ₽</div></div>
+            </div>
+        </section>
+
+        <!-- КАТЕГОРИЯ: САЛАТЫ -->
+        <section class="category-section" id="salads">
+            <h2 class="category-title">Салаты <span class="category-count">5 позиций</span></h2>
+            <div class="menu-list">
+                <div class="menu-item"><div class="item-details"><h3>Салат с говядиной</h3><span class="item-weight">250гр</span></div><div class="item-price">350 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Салат с Баклажанами</h3><span class="item-weight">250гр</span></div><div class="item-price">280 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Салат Овощи по-грузински</h3><span class="item-weight">250гр</span></div><div class="item-price">320 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Салат Цезарь с курицей</h3><span class="item-weight">250гр</span></div><div class="item-price">350 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Салат овощной</h3><span class="item-weight">250гр</span></div><div class="item-price">270 ₽</div></div>
+            </div>
+        </section>
+
+        <!-- КАТЕГОРИЯ: БУРГЕРЫ -->
+        <section class="category-section" id="burgers">
+            <h2 class="category-title">Бургеры <span class="category-count">3 позиции</span></h2>
+            <div class="menu-list">
+                <div class="menu-item"><div class="item-details"><h3>Гамбургер</h3><span class="item-weight">250гр</span></div><div class="item-price">250 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Чизбургер</h3><span class="item-weight">280гр</span></div><div class="item-price">300 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Бургер Шаурмен28</h3><span class="item-weight">350гр</span></div><div class="item-price">400 ₽</div></div>
+            </div>
+        </section>
+
+        <!-- КАТЕГОРИЯ: ХОТ-ДОГИ -->
+        <section class="category-section" id="hotdogs">
+            <h2 class="category-title">Хот-доги <span class="category-count">4 позиции</span></h2>
+            <div class="menu-list">
+                <div class="menu-item"><div class="item-details"><h3>Хот-дог классический</h3><span class="item-weight">150гр</span></div><div class="item-price">200 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Хот-дог с беконом</h3><span class="item-weight">180гр</span></div><div class="item-price">250 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Хот-дог с морковью по-корейски</h3><span class="item-weight">200гр</span></div><div class="item-price">230 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Хот-дог BBQ</h3><span class="item-weight">220гр</span></div><div class="item-price">280 ₽</div></div>
+            </div>
+        </section>
+
+        <!-- КАТЕГОРИЯ: БЛЮДА ВО ФРИТЮРЕ -->
+        <section class="category-section" id="frit">
+            <h2 class="category-title">Блюда во фритюре <span class="category-count">4 позиции</span></h2>
+            <div class="menu-list">
+                <div class="menu-item"><div class="item-details"><h3>Наггетсы куриные</h3><span class="item-weight">150гр</span></div><div class="item-price">350 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Сырные палочки</h3><span class="item-weight">200гр</span></div><div class="item-price">370 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Картофель фри</h3><span class="item-weight">150гр</span></div><div class="item-price">300 ₽</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Дольки картофельные</h3><span class="item-weight">150гр</span></div><div class="item-price">300 ₽</div></div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Раздел с заказом -->
     <section class="contacts" id="contacts">
-        <h2 class="section-title">Быстрый заказ</h2>
-        <p>Жми на кнопку ниже, говори свой заказ и забирай через 10-15 минут!</p>
+        <h2>Сделать предзаказ</h2>
+        <p>Свяжитесь с нами удобным способом, назовите блюда и заберите их горячими через 10-15 минут!</p>
         
         <div class="contact-buttons">
-            <!-- Замени username на имя своего аккаунта/бота в ТГ -->
-            <a href="https://t.me/username" target="_blank" class="btn btn-tg">💬 Заказать в Telegram</a>
-            <!-- Замени номер телефона на свой реальный -->
-            <a href="tel:+79991234567" class="btn">📞 Позвонить предзаказ</a>
+            <a href="https://t.me/твой_логин_в_телеграм" target="_blank" class="btn btn-tg">💬 Написать в Telegram</a>
+            <a href="tel:+79991234567" class="btn">📞 Позвонить на точку</a>
         </div>
-
-        <div style="margin-top: 40px; color: #aaa; font-size: 16px;">
+        
+        <div style="margin-top: 30px; color: #888; font-size: 14px;">
             <p>📍 г. Благовещенск, ул. Ленина, д. 28</p>
-            <p>⏰ Работаем ежедневно с 10:00 до 23:00</p>
+            <p>⏰ Работаем каждый день с 10:00 до 23:00</p>
         </div>
     </section>
 
-    <!-- Липкая панель (видят ТОЛЬКО пользователи с телефонов) -->
+    <!-- Липкая мобильная панель (всегда внизу экрана на телефонах) -->
     <div class="mobile-action-bar">
         <a href="tel:+79991234567" class="bar-call">📞 Позвонить</a>
-        <a href="https://t.me/username" target="_blank" class="bar-tg">💬 В Telegram</a>
+        <a href="https://t.me/твой_логин_в_телеграм" target="_blank" class="bar-tg">💬 Telegram</a>
     </div>
 
     <footer>
-        <p>&copy; 2026 Шаурмен28. Все права защищены. Сделано с аппетитом.</p>
+        <p>&copy; 2026 Шаурмен28. Меню актуально. Сделано с аппетитом.</p>
     </footer>
 
 </body>
